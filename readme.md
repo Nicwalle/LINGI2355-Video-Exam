@@ -25,4 +25,79 @@ The idea is that each node of the list will have a color different to the one of
 ## Slide 13
 Talking about operations, those have a state, a subject node which is the one it has to add or remove and a source node which is adjacent to it.
 
-The Memento contains a copy of the nodes before 
+The Memento contains a copy of the nodes metadata before starting the operation. That way, we will be able to detect inconsistencies.
+
+## Slide 14 
+The available operations of CAS-chromo are listed here.
+
+## Slide 15 
+We now have 2 processes willing to perform 2 different operations. A push left and a pop left.
+
+## Slide 16 
+Both operations are in their INIT state and the green one has already prepared its new node.
+
+## Slide 17
+Let's say the green operation first goes to the acquire phase. It acquires the red node as it does only need to acquire the two leftmost node to perform a push operation.
+
+## Slides 18
+Now, the orange process wants to acquire the 3 leftmost nodes. It gets the green first but cannot go further as the red one is already owned by the green process.
+
+## Slide 19
+Instead of waiting for it, CAS introduces the concept of helping. That way the orange process will help performing the push left.
+
+## Slide 20
+And the node acquisition can continue.
+
+## Slide 21
+As all the needed nodes have been acquired, we can move the push operation to its apply phase where it will point to its neighbors
+
+## Slide 22
+Get a legal color which is different from the its neighbors'
+
+## Slide 23
+And be pointed by its right
+
+## Slide 24
+And left neighbor.
+
+## Slide 25 
+The operation continues to the release phase
+
+## Slide 26
+and ends in the final one.
+
+## Slide 27
+The pop left operation can now continue but thanks to its Memento, it detects that there have been changes in the list
+
+## Slide 28
+It successively moves to a release with contention
+
+## Slide 29
+And a final with contention state
+
+## Slide 30
+Before going back to the initial state
+
+## Slide 31
+It can then acquire the nodes without any trouble
+
+## Slide 32
+Start applying changes by first
+
+## Slide 33
+decoloring the right node to make sur the changes will maintain a legal coloring
+
+## Slide 34
+changing the next
+
+## Slide 35
+and previous references
+
+## Slide 36
+and finally getting the node
+
+## Slide 37
+before re-applying a legal color to the node 1 and moving to the release phase.
+
+## Slide 38
+after releasing the nodes, the operation is complete and moves to the final phase
